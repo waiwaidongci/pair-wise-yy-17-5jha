@@ -11,10 +11,12 @@
       "baselineTemp": 16.2,
       "baselineHumidity": 92,
       "baselineCo2": 680,
+      "noiseLimit": 55,
       "note": "游客步道上方，滴水频率稳定",
       "createdAt": "2026-06-14T08:00:00.000Z",
-      "updatedAt": "2026-06-14T08:00:00.000Z",
+      "updatedAt": "2026-09-24T09:20:00.000Z",
       "history": [
+        { "at": "2026-09-24T09:20:00.000Z", "action": "声环境观察", "note": "D-07 声环境观察期间重点保护（峰值超限）" },
         { "at": "2026-06-14T08:00:00.000Z", "action": "创建", "note": "样点建档" }
       ]
     }
@@ -25,10 +27,13 @@
       "siteId": "site-seed-1",
       "surveyor": "沈宁",
       "date": "2026-06-18",
+      "measuredAt": "2026-06-18T10:00",
       "temperature": 17.4,
       "humidity": 88,
       "co2": 920,
       "dripRate": 12,
+      "soundLevel": 52,
+      "teamSize": 12,
       "disturbance": "栏杆外侧有触碰痕迹",
       "photoUrl": "",
       "status": "异常待复查",
@@ -37,6 +42,79 @@
       "updatedAt": "2026-06-18T10:00:00.000Z",
       "history": [
         { "at": "2026-06-18T10:00:00.000Z", "action": "创建", "note": "CO2升高并有干扰痕迹" }
+      ]
+    },
+    {
+      "id": "survey-seed-2",
+      "siteId": "site-seed-1",
+      "surveyor": "沈宁",
+      "date": "2026-09-24",
+      "measuredAt": "2026-09-24T09:20",
+      "temperature": 16.8,
+      "humidity": 90,
+      "co2": 740,
+      "dripRate": 11,
+      "soundLevel": 63.5,
+      "teamSize": 26,
+      "disturbance": "讲解团刚离场，洞厅回声明显",
+      "photoUrl": "",
+      "status": "正常",
+      "reviewNote": "",
+      "createdAt": "2026-09-24T09:20:00.000Z",
+      "updatedAt": "2026-09-24T09:20:00.000Z",
+      "history": [
+        { "at": "2026-09-24T09:20:00.000Z", "action": "创建", "note": "讲解团离场后首次巡测" }
+      ]
+    },
+    {
+      "id": "survey-seed-3",
+      "siteId": "site-seed-1",
+      "surveyor": "顾岩",
+      "date": "2026-09-24",
+      "measuredAt": "2026-09-24T11:05",
+      "temperature": 16.6,
+      "humidity": 91,
+      "co2": 705,
+      "dripRate": 11,
+      "soundLevel": 52,
+      "teamSize": 0,
+      "disturbance": "",
+      "photoUrl": "",
+      "status": "正常",
+      "reviewNote": "",
+      "createdAt": "2026-09-24T11:05:00.000Z",
+      "updatedAt": "2026-09-24T11:05:00.000Z",
+      "history": [
+        { "at": "2026-09-24T11:05:00.000Z", "action": "创建", "note": "交班巡测" }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-seed-1",
+      "siteId": "site-seed-1",
+      "status": "观察中",
+      "openerSurveyId": "survey-seed-2",
+      "opener": "沈宁",
+      "firstSurveyId": "survey-seed-2",
+      "latestSurveyId": "survey-seed-2",
+      "openedAt": "2026-09-24T09:20",
+      "closedAt": "",
+      "noiseLimit": 55,
+      "peakLevel": 63.5,
+      "peakSurveyId": "survey-seed-2",
+      "teamSize": 26,
+      "reportCount": 1,
+      "confirmations": [
+        { "surveyId": "survey-seed-3", "surveyor": "顾岩", "soundLevel": 52, "at": "2026-09-24T11:05" }
+      ],
+      "assignee": "顾岩",
+      "remaining": 1,
+      "createdAt": "2026-09-24T09:20:00.000Z",
+      "updatedAt": "2026-09-24T11:05:00.000Z",
+      "history": [
+        { "at": "2026-09-24T11:05:00.000Z", "action": "首次确认", "note": "顾岩 测得 52 dB 低于限值 55 dB，等待其第 2 次确认（间隔不少于 2 小时）" },
+        { "at": "2026-09-24T09:20:00.000Z", "action": "建立观察单", "note": "沈宁 巡测峰值 63.5 dB，超过样点限值 55 dB，团队 26 人；样点转入重点保护" }
       ]
     }
   ]

@@ -147,6 +147,10 @@ main {
   display: block;
 }
 
+.view.active > .panel + .panel {
+  margin-top: 18px;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -307,6 +311,59 @@ main {
   background: #fff;
   border: 1px dashed var(--line);
   border-radius: 8px;
+}
+
+.subhead {
+  margin: 18px 0 10px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.rule-note {
+  margin: 0 0 8px;
+  line-height: 1.7;
+}
+
+.queue-panel .list {
+  margin-bottom: 8px;
+}
+
+.obs-card.open {
+  border-left: 4px solid var(--warn);
+}
+
+.obs-card.closed {
+  opacity: .82;
+}
+
+.queue-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+  background: #f7f3eb;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.queue-row > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.queue-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.queue-row strong {
+  font-size: 14px;
+}
+
+.queue-row strong.gap {
+  color: var(--warn);
 }
 
 .toast {
