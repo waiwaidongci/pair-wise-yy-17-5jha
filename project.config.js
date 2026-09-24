@@ -1,26 +1,37 @@
 module.exports = {
   port: 3912,
   title: '钟乳石洞穴微环境巡测',
-  lede: '围绕洞穴、分区、样点和巡测路线记录微环境数据，发现异常后生成复查闭环。',
+  lede: '围绕洞穴、分区、样点和巡测路线记录微环境数据；讲解团离开后登记声环境恢复情况，超限自动建立观察单并闭环复查。',
   tones: {
     '常规观察': 'ok',
     '正常': 'ok',
     '已复查': 'ok',
+    '已恢复': 'ok',
     '重点保护': 'warn',
+    '观察中': 'bad',
     '异常待复查': 'bad',
     '暂停开放': 'bad'
   },
   collections: {
     sites: { label: '样点档案' },
-    surveys: { label: '巡测记录' }
+    surveys: { label: '巡测记录' },
+    soundObservations: { label: '声环境观察单' }
   },
   stats: [
     { label: '样点', collection: 'sites' },
     { label: '重点保护', collection: 'sites', filter: { field: 'protectedStatus', value: '重点保护' } },
     { label: '巡测记录', collection: 'surveys' },
-    { label: '待复查', collection: 'surveys', filter: { field: 'status', value: '异常待复查' } }
+    { label: '待恢复观察', collection: 'soundObservations', filter: { field: 'status', value: '观察中' } }
   ],
   views: [
+    {
+      id: 'sound',
+      label: '声环境恢复',
+      type: 'sound',
+      collection: 'soundObservations',
+      listTitle: '声环境恢复队列',
+      description: '按等待时长排序：处理人（首次上报人）与还差几项连续合格复测。观察期间样点为重点保护，须由另一位巡测员连续两次复测低于限值、且间隔不少于 2 小时方可恢复。'
+    },
     {
       id: 'dashboard',
       label: '趋势看板',
@@ -44,7 +55,11 @@ module.exports = {
       detailFields: [
         { label: '洞穴', name: 'cave' },
         { label: '巡测路线', name: 'route' },
-        { label: '敏感等级', name: 'sensitivity' }
+        { label: '敏感等级', name: 'sensitivity' },
+        { label: '声级限值(dB)', name: 'soundLimit' }
+      ],
+      amendFields: [
+        { label: '修订声级限值(dB)', name: 'soundLimit', type: 'number', hint: '保存后未结束观察单将按新限值重判，旧结论留在履历' }
       ],
       fields: [
         { label: '洞穴', name: 'cave', required: true },
@@ -53,6 +68,7 @@ module.exports = {
         { label: '巡测路线', name: 'route', required: true },
         { label: '敏感等级', name: 'sensitivity', type: 'select', options: ['低', '中', '高'] },
         { label: '保护状态', name: 'protectedStatus', type: 'select', options: ['常规观察', '重点保护', '暂停开放'] },
+        { label: '声级限值(dB)', name: 'soundLimit', type: 'number', required: true },
         { label: '基准温度', name: 'baselineTemp', type: 'number', required: true },
         { label: '基准湿度', name: 'baselineHumidity', type: 'number', required: true },
         { label: '基准CO2', name: 'baselineCo2', type: 'number', required: true },
@@ -76,13 +92,20 @@ module.exports = {
       detailFields: [
         { label: '温度', name: 'temperature' },
         { label: '湿度', name: 'humidity' },
-        { label: 'CO2', name: 'co2' }
+        { label: 'CO2', name: 'co2' },
+        { label: '峰值声级(dB)', name: 'soundLevel' },
+        { label: '团队人数', name: 'groupSize' }
       ],
-      defaults: { status: '正常', reviewNote: '' },
+      amendFields: [
+        { label: '修订峰值声级(dB)', name: 'soundLevel', type: 'number', hint: '保存后按样点当前限值重判关联观察单，旧结论留在履历' }
+      ],
+      defaults: { status: '正常', reviewNote: '', groupSize: 0 },
       fields: [
         { label: '样点', name: 'siteId', type: 'relation', collection: 'sites', labelFields: ['cave', 'zone', 'pointCode'], required: true, wide: true },
         { label: '巡测人员', name: 'surveyor', required: true },
         { label: '日期', name: 'date', type: 'date', required: true },
+        { label: '峰值声级(dB)', name: 'soundLevel', type: 'number', required: true },
+        { label: '团队人数', name: 'groupSize', type: 'number', required: true },
         { label: '温度', name: 'temperature', type: 'number', required: true },
         { label: '湿度', name: 'humidity', type: 'number', required: true },
         { label: 'CO2', name: 'co2', type: 'number', required: true },
